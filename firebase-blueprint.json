@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "Photobook": {
+      "title": "Photobook",
+      "description": "A high-quality printed photobook product.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Name of the photobook" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "price": { "type": "number", "description": "Price in IDR" },
+        "imageUrl": { "type": "string", "description": "URL of the main image" },
+        "category": { "type": "string", "description": "Category (e.g., Wedding, Travel, Baby)" },
+        "pages": { "type": "number", "description": "Number of pages" },
+        "coverType": { "type": "string", "description": "Hardcover or Softcover" }
+      },
+      "required": ["title", "price", "imageUrl", "category"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order for photobooks.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the customer" },
+        "customerEmail": { "type": "string" },
+        "items": {
+          "type": "array",
+          "description": "List of ordered items"
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "paid", "shipped", "cancelled"] },
+        "shippingAddress": { "type": "string" },
+        "paymentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "items", "totalAmount", "status", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile data.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "isAdmin": { "type": "boolean" }
+      }
+    }
+  },
+  "firestore": {
+    "/photobooks/{bookId}": {
+      "schema": "Photobook",
+      "description": "Collection of available photobooks."
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    }
+  }
+}
